@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { ExpoConfigView } from '@expo/samples';
 
-export default class SettingsScreen extends React.Component {
+class SettingsScreen extends Component {
   static navigationOptions = {
     title: 'app.json',
   };
@@ -12,3 +12,5 @@ export default class SettingsScreen extends React.Component {
     return <ExpoConfigView />;
   }
 }
+
+export default SettingsScreen;
