@@ -1,6 +1,8 @@
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import ServiceView from '../components/ServiceView';
+
 const HomeScreen = () => (
   <View style={styles.container}>
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -19,10 +21,10 @@ const HomeScreen = () => (
 
       <View style={styles.getStartedContainer}>
         <Text style={styles.helloText}>Hello World.</Text>
-
         <Text style={styles.getStartedText}>
           Change this text and your app will automatically reload.
         </Text>
+        <ServiceView />
       </View>
     </ScrollView>
   </View>

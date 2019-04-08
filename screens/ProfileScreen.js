@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { View, Button, Text } from 'react-native';
+import { View, Button, Text, StyleSheet } from 'react-native';
 import { Header, Avatar } from 'react-native-elements';
 
 import LoginView from '../components/LoginView';
+import CompanyQR from '../components/CompanyQR';
 
 import { subscribeAuthChange, logout } from '../utils/auth';
+import { getUserName, getAvatar } from '../utils/user';
 import { db } from '../utils/firebase';
 
 class ProfileScreen extends Component {
   state = {
     user: null,
-    userData: null,
+    profile: null,
     pending: false,
   };
 
@@ -23,16 +25,20 @@ class ProfileScreen extends Component {
   fetchUserData = () => {
     const { user } = this.state;
     if (!user) {
-      this.setState({ userData: null, error: null });
+      this.setState({ profile: null, error: null });
       return;
     }
     this.setState({ pending: true });
     db.collection('users')
       .doc(user.email)
       .get()
-      .then(doc => {
+      .then(async doc => {
         if (doc.exists) {
-          this.setState({ pending: false, userData: doc.data(), error: null });
+          const profile = doc.data();
+          const res = await profile.company.get();
+          profile.company = res.data();
+          profile.company.id = res.id;
+          this.setState({ pending: false, profile, error: null });
           return;
         }
         throw new Error('Your profile is not linked, please contact your administrator');
@@ -41,7 +47,7 @@ class ProfileScreen extends Component {
   };
 
   render() {
-    const { user, pending, userData, error } = this.state;
+    const { user, pending, profile, error } = this.state;
 
     if (!user) {
       return <LoginView />;
@@ -50,20 +56,20 @@ class ProfileScreen extends Component {
     return (
       <View>
         <Header
-          centerComponent={{ text: user.displayName || user.email }}
+          centerComponent={{ text: getUserName(user, profile) }}
           rightComponent={
             <Avatar
               rounded
-              source={user.photoURL && { uri: user.photoURL }}
+              source={getAvatar(user, profile)}
               icon={{ name: 'user', type: 'font-awesome' }}
             />
           }
         />
-        <View>
+        <View style={styles.container}>
           {pending && <Text>pending...</Text>}
           {error && <Text>{error}</Text>}
-          {userData && <Text>{userData.company}</Text>}
           <Button onPress={logout} title="Log out" />
+          {profile && <CompanyQR {...profile.company} />}
         </View>
       </View>
     );
@@ -73,5 +79,11 @@ class ProfileScreen extends Component {
 ProfileScreen.navigationOptions = {
   header: null,
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+  },
+});
 
 export default ProfileScreen;
