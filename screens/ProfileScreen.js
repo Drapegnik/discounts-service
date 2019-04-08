@@ -25,11 +25,11 @@ class ProfileScreen extends Component {
     return (
       <View>
         <Header
-          centerComponent={{ text: user.displayName }}
+          centerComponent={{ text: user.displayName || user.email }}
           rightComponent={
             <Avatar
               rounded
-              source={{ uri: user.photoURL }}
+              source={user.photoURL && { uri: user.photoURL }}
               icon={{ name: 'user', type: 'font-awesome' }}
             />
           }

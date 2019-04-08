@@ -38,9 +38,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#3B5998',
   },
-  facebookButtonText: {
-    color: '#fff',
-  },
 });
 
 export default FacebookButton;

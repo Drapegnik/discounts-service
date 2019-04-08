@@ -10,12 +10,16 @@ export const loginWithFacebook = async () => {
   if (type === 'success' && token) {
     await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     const credential = firebase.auth.FacebookAuthProvider.credential(token);
-    // await firebase.auth().signInAndRetrieveDataWithCredential(credential);
-    // return Promise.resolve({ type: 'success' });
     return firebase.auth().signInAndRetrieveDataWithCredential(credential);
   }
 
   return Promise.reject();
+};
+
+export const login = async (email, password) => {
+  await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+  const credential = firebase.auth.EmailAuthProvider.credential(email, password);
+  return firebase.auth().signInAndRetrieveDataWithCredential(credential);
 };
 
 export const subscribeAuthChange = callback => {

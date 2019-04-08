@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import FacebookButton from './FacebookButton';
+import LoginForm from './auth/LoginForm';
+import FacebookButton from './auth/FacebookButton';
 
 import { loginWithFacebook } from '../utils/auth';
 
@@ -27,6 +28,7 @@ class LoginView extends Component {
     const { pending } = this.state;
     return (
       <View style={styles.container}>
+        <LoginForm />
         <FacebookButton pending={pending} onPress={this.handleFacebookLogin} />
       </View>
     );
