@@ -1,13 +1,7 @@
-import {
-  FIREBASE_API_KEY,
-  FIREBASE_AUTH_DOMAIN,
-  FIREBASE_DATABASE_URL,
-  FIREBASE_STORAGE_BUCKET,
-} from 'react-native-dotenv';
+import { FIREBASE_API_KEY, FIREBASE_PROJECT_ID, FIREBASE_AUTH_DOMAIN } from 'react-native-dotenv';
 
 export default {
   apiKey: FIREBASE_API_KEY || '',
+  projectId: FIREBASE_PROJECT_ID || '',
   authDomain: FIREBASE_AUTH_DOMAIN || '',
-  databaseURL: FIREBASE_DATABASE_URL || '',
-  storageBucket: FIREBASE_STORAGE_BUCKET || '',
 };
