@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Button, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Header, Avatar } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 
 import LoginView from '../components/LoginView';
 import CompanyQR from '../components/CompanyQR';
@@ -68,7 +69,7 @@ class ProfileScreen extends Component {
         <View style={styles.container}>
           {pending && <Text>pending...</Text>}
           {error && <Text>{error}</Text>}
-          <Button onPress={logout} title="Log out" />
+          <Button style={styles.logOut} onPress={logout} title="Log out" />
           {profile && <CompanyQR {...profile.company} />}
         </View>
       </View>
@@ -84,6 +85,9 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
   },
+  logOut: {
+    margin: 10,
+  }
 });
 
 export default ProfileScreen;

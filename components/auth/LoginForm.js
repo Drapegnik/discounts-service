@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import { Input, Button } from 'react-native-elements';
+import { Input, Button, Text } from 'react-native-elements';
 
 import { login } from '../../utils/auth';
 
@@ -33,15 +33,20 @@ class LoginForm extends Component {
     const formFilled = p && e;
     return (
       <>
+        <Text h2 style={styles.loginTitle}>Discounts Service</Text>
         <Input
-          placeholder="email"
-          leftIcon={{ type: 'octicon', name: 'mail' }}
+          containerStyle={styles.loginInput}
+          leftIconContainerStyle={styles.loginInputIcon}
+          placeholder="Email"
+          leftIcon={{ type: 'font-awesome', name: 'envelope' }}
           onChangeText={email => this.setState({ email })}
           autoComplete="email"
         />
         <Input
-          placeholder="password"
-          leftIcon={{ type: 'octicon', name: 'lock' }}
+          containerStyle={styles.loginInput}
+          leftIconContainerStyle={styles.loginInputIcon}
+          placeholder="Password"
+          leftIcon={{ type: 'font-awesome', name: 'unlock' }}
           onChangeText={password => this.setState({ password })}
           errorMessage={error}
           autoComplete="password"
@@ -61,6 +66,15 @@ class LoginForm extends Component {
 }
 
 const styles = StyleSheet.create({
+  loginTitle: {
+    marginBottom: 15,
+  },
+  loginInput: {
+    width: '75%',
+  },  
+  loginInputIcon: {
+    marginRight: 10,
+  },
   loginButton: {
     width: 375 * 0.75,
     height: 48,
@@ -68,6 +82,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#7CFC00',
+    marginTop: 15,
   },
 });
 

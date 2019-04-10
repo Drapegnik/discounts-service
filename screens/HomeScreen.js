@@ -1,5 +1,6 @@
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { Text } from 'react-native-elements';
 
 import ServiceView from '../components/ServiceView';
 
@@ -20,10 +21,6 @@ const HomeScreen = () => (
       </View>
 
       <View style={styles.getStartedContainer}>
-        <Text style={styles.helloText}>Hello World.</Text>
-        <Text style={styles.getStartedText}>
-          Change this text and your app will automatically reload.
-        </Text>
         <ServiceView />
       </View>
     </ScrollView>
@@ -39,20 +36,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  helloText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
   contentContainer: {
     paddingTop: 30,
+    alignItems: 'center',
   },
   welcomeContainer: {
     alignItems: 'center',
     marginTop: 10,
-    marginBottom: 20,
   },
   welcomeImage: {
     width: 100,
@@ -64,12 +54,6 @@ const styles = StyleSheet.create({
   getStartedContainer: {
     alignItems: 'center',
     marginHorizontal: 50,
-  },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
   },
 });
 
