@@ -1,81 +1,46 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Header, Avatar } from 'react-native-elements';
-import { Button } from 'react-native-elements';
+import { Header, Avatar, Button } from 'react-native-elements';
 
-import LoginView from '../components/LoginView';
+import AuthProvider from '../components/AuthProvider';
 import CompanyQR from '../components/CompanyQR';
 
-import { subscribeAuthChange, logout } from '../utils/auth';
+import { logout } from '../utils/auth';
 import { getUserName, getAvatar } from '../utils/user';
-import { db } from '../utils/firebase';
 
-class ProfileScreen extends Component {
-  state = {
-    user: null,
-    profile: null,
-    pending: false,
-  };
+const ProfileScreen = () => (
+  <View style={{ flex: 1 }}>
+    <AuthProvider showLogin>
+      {({ user, profile, pending, error }) => (
+        <>
+          <Header
+            centerComponent={{ text: getUserName(user, profile) }}
+            rightComponent={
+              <Avatar
+                rounded
+                source={getAvatar(user, profile)}
+                icon={{ name: 'user', type: 'font-awesome' }}
+              />
+            }
+          />
+          <View style={styles.container}>
+            {pending && <Text style={styles.margin}>Loading Profile...</Text>}
+            {error && <Text style={styles.margin}>{error}</Text>}
+            {profile && profile.role === 'customer' && (
+              <View style={styles.qrArea}>
+                <CompanyQR {...profile.company} />
+              </View>
+            )}
+          </View>
 
-  componentDidMount() {
-    subscribeAuthChange(user => {
-      this.setState({ user }, this.fetchUserData);
-    });
-  }
-
-  fetchUserData = () => {
-    const { user } = this.state;
-    if (!user) {
-      this.setState({ profile: null, error: null });
-      return;
-    }
-    this.setState({ pending: true });
-    db.collection('users')
-      .doc(user.email)
-      .get()
-      .then(async doc => {
-        if (doc.exists) {
-          const profile = doc.data();
-          const res = await profile.company.get();
-          profile.company = res.data();
-          profile.company.id = res.id;
-          this.setState({ pending: false, profile, error: null });
-          return;
-        }
-        throw new Error('Your profile is not linked, please contact your administrator');
-      })
-      .catch(({ message }) => this.setState({ error: message, pending: false }));
-  };
-
-  render() {
-    const { user, pending, profile, error } = this.state;
-
-    if (!user) {
-      return <LoginView />;
-    }
-
-    return (
-      <View>
-        <Header
-          centerComponent={{ text: getUserName(user, profile) }}
-          rightComponent={
-            <Avatar
-              rounded
-              source={getAvatar(user, profile)}
-              icon={{ name: 'user', type: 'font-awesome' }}
-            />
-          }
-        />
-        <View style={styles.container}>
-          {pending && <Text>pending...</Text>}
-          {error && <Text>{error}</Text>}
-          <Button style={styles.logOut} onPress={logout} title="Log out" />
-          {profile && <CompanyQR {...profile.company} />}
-        </View>
-      </View>
-    );
-  }
-}
+          <View style={styles.bottom}>
+            <Button buttonStyle={styles.logoutButton} onPress={logout} title="Log out" />
+          </View>
+        </>
+      )}
+    </AuthProvider>
+  </View>
+);
 
 ProfileScreen.navigationOptions = {
   header: null,
@@ -85,9 +50,24 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
   },
-  logOut: {
+  margin: {
     margin: 10,
-  }
+  },
+  qrArea: {
+    margin: 30,
+  },
+  bottom: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 20,
+    alignItems: 'center',
+  },
+  logoutButton: {
+    width: 375 * 0.75,
+    height: 48,
+    borderRadius: 50,
+    marginTop: 15,
+  },
 });
 
 export default ProfileScreen;

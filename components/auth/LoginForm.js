@@ -33,7 +33,9 @@ class LoginForm extends Component {
     const formFilled = p && e;
     return (
       <>
-        <Text h2 style={styles.loginTitle}>Discounts Service</Text>
+        <Text h2 style={styles.loginTitle}>
+          Discounts Service
+        </Text>
         <Input
           containerStyle={styles.loginInput}
           leftIconContainerStyle={styles.loginInputIcon}
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
   },
   loginInput: {
     width: '75%',
-  },  
+  },
   loginInputIcon: {
     marginRight: 10,
   },
@@ -79,8 +81,6 @@ const styles = StyleSheet.create({
     width: 375 * 0.75,
     height: 48,
     borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#7CFC00',
     marginTop: 15,
   },
