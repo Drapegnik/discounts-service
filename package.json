@@ -6,13 +6,13 @@
     "ios": "expo start --ios",
     "eject": "expo eject",
     "test": "node ./node_modules/jest/bin/jest.js --watchAll",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "fetch-places": "node bin/fetch-places.js"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/samples": "2.1.1",
     "expo": "^32.0.0",
     "firebase": "^5.9.1",
     "prop-types": "^15.7.2",
@@ -27,6 +27,7 @@
   "devDependencies": {
     "babel-eslint": "^10.0.1",
     "babel-preset-expo": "^5.0.0",
+    "dotenv": "^7.0.0",
     "eslint": "^5.15.3",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^4.1.0",
@@ -34,8 +35,11 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-react": "^7.12.4",
+    "jest": "^24.7.1",
     "jest-expo": "^32.0.0",
-    "prettier": "^1.16.4"
+    "node-fetch": "^2.3.0",
+    "prettier": "^1.16.4",
+    "qs": "^6.7.0"
   },
   "private": true
 }
