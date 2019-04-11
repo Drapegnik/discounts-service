@@ -41,7 +41,7 @@ class AuthProvider extends Component {
       .then(async doc => {
         if (doc.exists) {
           const profile = doc.data();
-          if (profile.role === 'customer') {
+          if (profile.role !== 'staff') {
             const res = await profile.company.get();
             profile.company = res.data();
             profile.company.id = res.id;

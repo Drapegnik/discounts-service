@@ -3,6 +3,7 @@ import { Image, ScrollView, StyleSheet, View, Text, Button } from 'react-native'
 
 import AuthProvider from '../components/AuthProvider';
 import ServiceView from '../components/ServiceView';
+import PlacesView from '../components/PlacesView';
 
 const HomeScreen = ({ navigation }) => (
   <AuthProvider>
@@ -31,10 +32,12 @@ const HomeScreen = ({ navigation }) => (
               />
             )}
             {pending && <Text style={styles.text}>loading...</Text>}
-            {user && profile && profile.role === 'staff' && (
+            {user && profile && profile.role !== 'customer' && (
               <ServiceView user={user} profile={profile} />
             )}
-            {/* {user && profile && profile.role === 'customer' && } */}
+            {user && profile && profile.role !== 'staff' && (
+              <PlacesView user={user} profile={profile} />
+            )}
           </View>
         </ScrollView>
       </View>

@@ -26,7 +26,7 @@ const ProfileScreen = () => (
           <View style={styles.container}>
             {pending && <Text style={styles.margin}>Loading Profile...</Text>}
             {error && <Text style={styles.margin}>{error}</Text>}
-            {profile && profile.role === 'customer' && (
+            {profile && profile.role !== 'staff' && (
               <View style={styles.qrArea}>
                 <CompanyQR {...profile.company} />
               </View>
