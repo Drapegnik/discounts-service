@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Platform } from 'react-native';
-import { Icon } from 'expo';
+import { Ionicons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 
 const prefix = Platform.OS === 'ios' ? 'ios' : 'md';
 
 const TabBarIcon = ({ name, focused }) => (
-  <Icon.Ionicons
+  <Ionicons
     name={`${prefix}-${name}`}
     size={26}
     style={{ marginBottom: -3 }}

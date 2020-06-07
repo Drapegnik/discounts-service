@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, ActivityIndicator, Image, Dimensions, Button } from 'react-native';
-import { MapView } from 'expo';
+import MapView from 'react-native-maps';
 
 import { db } from '../utils/firebase';
 

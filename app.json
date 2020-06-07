@@ -3,7 +3,7 @@
     "name": "Discounts Service",
     "slug": "discounts-service",
     "privacy": "public",
-    "sdkVersion": "32.0.0",
+    "sdkVersion": "37.0.0",
     "platforms": [
       "ios",
       "android"
